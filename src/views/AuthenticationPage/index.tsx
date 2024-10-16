@@ -12,15 +12,15 @@ export default function AuthenticationPage() {
           <div className="absolute inset-0 container-background" />
           <div className="relative z-20 flex items-center text-lg">
             <HandCoins className="mr-2" />
-            Gestión 360
+            360 Gestión
           </div>
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-lg">
-                &ldquo;Optimiza tus finanzas con la inteligencia artificial que transforma datos en decisiones inteligentes. ¡Gestiona tu futuro
-                financiero con precisión y confianza!.&rdquo;
+                &ldquo;Lo que une todo esto es cómo se representan los datos, por lo que el aprendizaje de la representación se está volviendo más
+                central.&rdquo;
               </p>
-              <footer className="text-sm">Gestión 360</footer>
+              <footer className="text-sm">Samy Bengio</footer>
             </blockquote>
           </div>
         </div>

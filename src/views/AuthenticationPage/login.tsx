@@ -56,7 +56,7 @@ export default function Login() {
   return (
     <Card className="border-none mx-auto min-w-[90%] md:min-w-[60%]">
       <CardHeader className="space-y-1 text-center">
-        <CardTitle className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">CALL 360</CardTitle>
+        <CardTitle className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">360 Call</CardTitle>
         <CardDescription>Ingresa el correo y contraseña de tu cuenta</CardDescription>
       </CardHeader>
       <Form {...form}>
