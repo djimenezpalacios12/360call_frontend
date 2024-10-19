@@ -1,0 +1,7 @@
+.container-background {
+  background: linear-gradient(0deg, rgba(10, 10, 10, 0.1), rgba(9, 9, 11, 0.7)), linear-gradient(90deg, rgba(10, 10, 10, 0.1), rgba(9, 9, 11, 0.7)),
+    linear-gradient(180deg, rgba(10, 10, 10, 0.1), rgba(9, 9, 11, 0.7)), linear-gradient(270deg, rgba(10, 10, 10, 0.1), rgba(9, 9, 11, 1)),
+    url("../../assets/wallpapers/Logo 04.png");
+  background-size: cover;
+  background-position: center;
+}
