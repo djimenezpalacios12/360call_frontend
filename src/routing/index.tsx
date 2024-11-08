@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import AuthenticationPage from "@/views/AuthenticationPage";
 import LoadFilesPage from "@/views/loadFilesPage/files";
 import Navbar from "@/components/navbar/navbar";
+import { Page } from "@/components/navbar";
 
 // Routing
 const Routing = () => {
@@ -13,9 +14,9 @@ const Routing = () => {
         <Route
           path="/load"
           element={
-            <Navbar>
-              <LoadFilesPage />
-            </Navbar>
+            <>
+              <Page />
+            </>
           }
         />
 
