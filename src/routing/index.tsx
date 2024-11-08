@@ -1,8 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import AuthenticationPage from "@/views/AuthenticationPage";
-import LoadFilesPage from "@/views/loadFilesPage/files";
-import Navbar from "@/components/navbar/navbar";
 import { NavbarPage } from "@/components/navbar";
 
 // Routing
@@ -12,7 +10,23 @@ const Routing = () => {
       <Routes>
         <Route path="/" element={<AuthenticationPage />} />
         <Route
-          path="/load"
+          path="/chat"
+          element={
+            <>
+              <NavbarPage />
+            </>
+          }
+        />
+        <Route
+          path="/upload"
+          element={
+            <>
+              <NavbarPage />
+            </>
+          }
+        />
+        <Route
+          path="/dashboard"
           element={
             <>
               <NavbarPage />
