@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
+import { useTheme } from "@/components/theme-provider";
 import Login from "./login";
 import "./styles.css";
-import { useTheme } from "@/components/theme-provider";
 
 export default function AuthenticationPage() {
   const { setTheme } = useTheme();

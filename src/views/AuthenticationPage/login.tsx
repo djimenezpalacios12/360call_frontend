@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { formSchema } from "../../schemas/login.schemas";
 import { useLoginForm } from "@/hooks/useLogin.hooks";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import "./styles.css";
 
 export default function Login() {
   const [load, setLoad] = useState(false);
