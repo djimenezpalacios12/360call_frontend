@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { z } from "zod";
 import { AxiosError, AxiosResponse } from "axios";
+import { Eye, EyeOff, Headset, Loader } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,7 +10,6 @@ import { Label } from "@/components/ui/label";
 import { formSchema } from "../../schemas/login.schemas";
 import { useLoginForm } from "@/hooks/useLogin.hooks";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Eye, EyeOff, Loader } from "lucide-react";
 
 export default function Login() {
   const [load, setLoad] = useState(false);
@@ -56,7 +56,12 @@ export default function Login() {
   return (
     <Card className="border-none mx-auto min-w-[90%] md:min-w-[60%]">
       <CardHeader className="space-y-1 text-center">
-        <CardTitle className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">360 Call</CardTitle>
+        <CardTitle className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 flex align items-center justify-center">
+            <Headset className="mr-2" />
+            360 Call App
+          </h2>
+        </CardTitle>
         <CardDescription>Ingresa el correo y contraseña de tu cuenta</CardDescription>
       </CardHeader>
       <Form {...form}>
