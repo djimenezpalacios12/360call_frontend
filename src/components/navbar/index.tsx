@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ModeToggle } from "../mode-toggle";
 
-export function Page() {
+export function NavbarPage() {
   return (
     <SidebarProvider>
       <AppSidebar />
