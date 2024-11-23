@@ -6,9 +6,9 @@ import { AppStore, User } from "@/interfaces/app.interfaces";
 const nameSlice = "APP";
 const initialState: AppStore = {
   user: {
+    _id: "",
     email: "",
     nombre: "",
-    empresa: "",
     rol: "",
     token: "",
   },
@@ -18,10 +18,9 @@ export const app = createSlice({
   name: nameSlice,
   initialState,
   reducers: {
-    // * MOCK: Example reducer
-    // setAuth: (state: AppStore, action: PayloadAction<User>) => {
-    //   return { ...state, user: action.payload };
-    // },
+    setAuth: (state: AppStore, action: PayloadAction<User>) => {
+      return { ...state, user: action.payload };
+    },
     // Reset Redux State
     resetApp(state) {
       Object.assign(state, initialState);
@@ -29,5 +28,5 @@ export const app = createSlice({
   },
 });
 
-export const { resetApp } = app.actions;
+export const { resetApp, setAuth } = app.actions;
 export default app.reducer;

@@ -3,8 +3,12 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from "@/co
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ModeToggle } from "../mode-toggle";
+import { NavbarPageProps } from "@/interfaces/navbar.interfaces";
+import { useLocation } from "react-router-dom";
 
-export function NavbarPage() {
+const NavbarPage: React.FC<NavbarPageProps> = ({ children }) => {
+  const location = useLocation();
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -17,7 +21,7 @@ export function NavbarPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">View name here</BreadcrumbLink>
+                  <BreadcrumbLink href="#">{location.pathname.slice(1)}</BreadcrumbLink>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -26,14 +30,17 @@ export function NavbarPage() {
 
         {/* Children content */}
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-          </div>
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+          {children}
+          {/* <div className="grid auto-rows-min gap-4 md:grid-cols-3"> */}
+          {/* <div className="aspect-video rounded-xl bg-muted/50" /> */}
+          {/* <div className="aspect-video rounded-xl bg-muted/50" /> */}
+          {/* <div className="aspect-video rounded-xl bg-muted/50" /> */}
+          {/* </div> */}
+          {/* <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" /> */}
         </div>
       </SidebarInset>
     </SidebarProvider>
   );
-}
+};
+
+export default NavbarPage;

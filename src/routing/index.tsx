@@ -1,36 +1,36 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import AuthenticationPage from "@/views/AuthenticationPage";
-import { NavbarPage } from "@/components/navbar";
+import LoadFilesPage from "@/views/loadFilesPage/files";
+import NavbarPage from "@/components/navbar";
+import PrivateRoute from "./PrivaterRoute";
+import { useAppSelector } from "@/store/hooks";
 
 // Routing
 const Routing = () => {
+  const rol = useAppSelector((state) => state.app.user.rol);
+
   return (
     <>
       <Routes>
         <Route path="/" element={<AuthenticationPage />} />
-        <Route
-          path="/chat"
+        {/* <Route
+          path="/upload-file"
           element={
-            <>
-              <NavbarPage />
-            </>
+            <NavbarPage>
+              <LoadFilesPage />
+            </NavbarPage>
           }
-        />
+        /> */}
+
         <Route
-          path="/upload"
+          path="/upload-files"
           element={
-            <>
-              <NavbarPage />
-            </>
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <>
-              <NavbarPage />
-            </>
+            <PrivateRoute rol={rol} path="/upload-files">
+              <NavbarPage>
+                <LoadFilesPage />
+              </NavbarPage>
+            </PrivateRoute>
           }
         />
 

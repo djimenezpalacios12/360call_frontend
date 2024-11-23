@@ -1,36 +1,12 @@
 import * as React from "react";
-import { Command, MonitorUp, BotMessageSquare, LayoutDashboard } from "lucide-react";
+import { Command } from "lucide-react";
 
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
+import { dataOptions } from "@/hooks/useViews.hooks";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const data = {
-    user: {
-      name: "innova",
-      email: "dev@360innova.cl",
-      avatar: "/avatars/shadcn.jpg",
-    },
-    projects: [
-      {
-        name: "Chat",
-        url: "#",
-        icon: BotMessageSquare,
-      },
-      {
-        name: "Subir Archivos",
-        url: "#",
-        icon: MonitorUp,
-      },
-      {
-        name: "Resultados",
-        url: "#",
-        icon: LayoutDashboard,
-      },
-    ],
-  };
-
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -51,10 +27,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavProjects projects={data.projects} />
+        <NavProjects projects={dataOptions.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={dataOptions.user} />
       </SidebarFooter>
     </Sidebar>
   );

@@ -3,9 +3,9 @@ export interface AppStore {
 }
 
 export interface User {
+  _id: string;
   email: string;
   nombre: string;
-  empresa: string;
   rol: string;
   token: string;
 }

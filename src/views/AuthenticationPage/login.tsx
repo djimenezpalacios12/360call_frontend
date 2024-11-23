@@ -2,17 +2,27 @@ import { useState } from "react";
 import { z } from "zod";
 import { AxiosError, AxiosResponse } from "axios";
 import { Eye, EyeOff, Headset, Loader } from "lucide-react";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { formSchema } from "../../schemas/login.schemas";
 import { useLoginForm } from "@/hooks/useLogin.hooks";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { metadataUser, signIn } from "@/api/auth.api";
+import { configureClient } from "@/api/index.api";
+import { ErrorResponseData } from "@/interfaces/Axios.interfaces";
+import { TokenPayload } from "@/interfaces/auth.interfaces";
+import { useAppDispatch } from "@/store/hooks";
+import { setAuth } from "@/store/ducks/app";
 import "./styles.css";
 
 export default function Login() {
+  const dispatch = useAppDispatch();
+  const navigation = useNavigate();
+
   const [load, setLoad] = useState(false);
   const [type, setType] = useState<React.HTMLInputTypeAttribute>("password");
 
@@ -21,41 +31,42 @@ export default function Login() {
   const form = useLoginForm();
   // 3. Submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // authentication(values)
-    //   .then((res) => {
-    //     return res;
-    //   })
-    //   .then(async (res) => {
-    //     configureClient(res.data.token);
-    //     const metadata: AxiosResponse<Metadata> = await metadataUser();
-    //     dispatch(
-    //       setAuth({
-    //         auth: true,
-    //         email: metadata.data.email,
-    //         nombre: metadata.data.nombre,
-    //         empresa: metadata.data.empresa,
-    //         rutStorage: metadata.data.rut_storage_base,
-    //         rol: metadata.data.rol,
-    //         token: res.data.token,
-    //       })
-    //     );
-    //     navigation("/chat");
-    //   })
-    //   .catch((error: AxiosError<ErrorResponseData>) => {
-    //     console.log("Error en la Autenticación:", error);
-    //     toast.error("Error en la Autenticación", {
-    //       description: error.response?.data.data.err || error.message || "Error desconocido",
-    //       className: "toast-styles",
-    //       action: {
-    //         label: "Cerrar",
-    //         onClick: () => {},
-    //       },
-    //     });
-    //   });
+    setLoad(true);
+    signIn(values)
+      .then((res) => {
+        return res;
+      })
+      .then(async (res) => {
+        configureClient(res.data.token);
+        const metadata: AxiosResponse<TokenPayload> = await metadataUser();
+        dispatch(
+          setAuth({
+            _id: metadata.data.id_usuario,
+            email: metadata.data.correo,
+            nombre: metadata.data.nombre,
+            rol: metadata.data.rol,
+            token: res.data.token,
+          })
+        );
+        setLoad(false);
+        navigation("/upload-files");
+      })
+      .catch((error: AxiosError<ErrorResponseData>) => {
+        setLoad(false);
+        console.log("Error en la Autenticación:", error);
+        toast.error("Error en la Autenticación", {
+          description: error.response?.data.data.err || error.message || "Error desconocido",
+          className: "toast-styles",
+          action: {
+            label: "Cerrar",
+            onClick: () => {},
+          },
+        });
+      });
   }
 
   return (
-    <Card className="border-none mx-auto min-w-[90%] md:min-w-[60%]">
+    <Card className="border-none mx-auto min-w-[70%] md:min-w-[50%] bg-transparent">
       <CardHeader className="space-y-1 text-center">
         <CardTitle className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 flex align items-center justify-center">
@@ -71,7 +82,7 @@ export default function Login() {
             <div className="grid gap-2 text-left">
               <FormField
                 control={form.control}
-                name="email"
+                name="correo"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Correo</FormLabel>

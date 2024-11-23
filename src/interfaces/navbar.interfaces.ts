@@ -7,3 +7,14 @@ export interface Options {
   icon: React.ReactNode;
   url: string;
 }
+
+export interface Views {
+  view: string;
+  URL: string;
+  icon: React.ReactNode;
+  access: string[];
+}
+
+export interface NavbarPageProps {
+  children: React.ReactNode;
+}
