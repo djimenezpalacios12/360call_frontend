@@ -3,8 +3,7 @@ import { Command } from "lucide-react";
 
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { NavProjects } from "./nav-projects";
-import { NavUser } from "./nav-user";
-import { dataOptions } from "@/hooks/useViews.hooks";
+import NavUser from "./nav-user";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -27,10 +26,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavProjects projects={dataOptions.projects} />
+        <NavProjects />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={dataOptions.user} />
+        <NavUser />
       </SidebarFooter>
     </Sidebar>
   );
