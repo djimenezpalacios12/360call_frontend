@@ -2,7 +2,7 @@ import { Toaster } from "sonner";
 import { BrowserRouter } from "react-router-dom";
 
 import { ThemeProvider } from "@/components/theme-provider";
-import Login from "./views/AuthenticationPage/login";
+import AuthenticationPage from "./views/AuthenticationPage";
 import { configureClient } from "./api/index.api";
 import { useAppSelector } from "./store/hooks";
 import Routing from "./routing";
@@ -14,7 +14,7 @@ function App() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <BrowserRouter>{token ? <Routing /> : <Login />}</BrowserRouter>
+      <BrowserRouter>{token ? <Routing /> : <AuthenticationPage />}</BrowserRouter>
 
       <Toaster position="bottom-left" />
     </ThemeProvider>

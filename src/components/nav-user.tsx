@@ -1,6 +1,5 @@
-"use client";
-
 import { ChevronsUpDown, LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -13,6 +12,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import { useAppDispatch } from "@/store/hooks";
+import { resetApp } from "@/store/ducks/app";
+import { useTheme } from "./theme-provider";
 
 export function NavUser({
   user,
@@ -23,6 +25,10 @@ export function NavUser({
     avatar: string;
   };
 }) {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { setTheme } = useTheme();
+
   const { isMobile } = useSidebar();
 
   return (
@@ -63,7 +69,14 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup></DropdownMenuGroup>
             <DropdownMenuGroup></DropdownMenuGroup>
-            <DropdownMenuItem className="text-red-700 text-md">
+            <DropdownMenuItem
+              className="text-red-700 text-md"
+              onClick={() => {
+                dispatch(resetApp());
+                navigate("/");
+                setTheme("dark");
+              }}
+            >
               <LogOut className="mr-2" />
               Cerrar sesión
             </DropdownMenuItem>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { z } from "zod";
 import { AxiosError, AxiosResponse } from "axios";
-import { Eye, EyeOff, Headset, Loader } from "lucide-react";
+import { Eye, EyeOff, Headset, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
@@ -66,7 +66,7 @@ export default function Login() {
   }
 
   return (
-    <Card className="border-none mx-auto min-w-[70%] md:min-w-[50%] bg-transparent">
+    <Card className="border-none shadow-none mx-auto min-w-[70%] md:min-w-[50%] bg-transparent">
       <CardHeader className="space-y-1 text-center">
         <CardTitle className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 flex align items-center justify-center">
@@ -131,7 +131,7 @@ export default function Login() {
 
           <CardFooter className="grid gap-5">
             <Button className="w-full" type="submit" disabled={load}>
-              {load && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+              {load && <Loader2 className="animate-spin" />}
               Iniciar Sesión
             </Button>
           </CardFooter>

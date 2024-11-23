@@ -23,7 +23,7 @@ export default function AuthenticationPage() {
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-md">
-                <blockquote className="mt-6 border-l-2 pl-6 italic">
+                <blockquote className="mt-5 border-l-2 pl-6 italic">
                   &ldquo;Lo que une todo esto es cómo se representan los datos, por lo que el aprendizaje de la representación se está volviendo más
                   central.&rdquo;
                 </blockquote>
