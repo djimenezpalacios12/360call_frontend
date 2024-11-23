@@ -1,0 +1,8 @@
+.option-menu {
+    font-size: 13px;
+    font-weight: 400;
+    filter: invert(10%);
+    margin: 2px;
+    text-wrap: nowrap;
+    cursor: pointer;
+}

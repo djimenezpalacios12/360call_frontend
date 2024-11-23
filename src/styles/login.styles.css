@@ -1,0 +1,7 @@
+.background-wallpaper {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 1)),
+    url("../assets//wallpapers//Recurso15.jpg");
+  background-repeat: "no-repeat";
+  background-size: "cover";
+  background-position: "center";
+}

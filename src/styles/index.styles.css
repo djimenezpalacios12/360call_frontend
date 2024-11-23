@@ -1,0 +1,32 @@
+.container-custom {
+    height: calc(100lvh - 240px);
+}
+
+.container-custom-height {
+    height: calc(100lvh - 90px);
+}
+
+.row-custom-height {
+    height: calc(50lvh - 50px);
+}
+
+.border-custom {
+    border-width: 1px;
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+        0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.drop-shadow-custom {
+    filter: drop-shadow(5px 5px 35px #ff1800);
+}
+
+.drop-shadow-custom-black {
+    filter: drop-shadow(0px 0px 5px #000000);
+}
+
+.toast-styles {
+    text-align: start;
+    display: flex;
+    justify-content: start;
+}

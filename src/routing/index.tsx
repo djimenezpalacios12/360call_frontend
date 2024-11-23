@@ -5,6 +5,7 @@ import LoadFilesPage from "@/views/loadFilesPage/files";
 import NavbarPage from "@/components/navbar";
 import PrivateRoute from "./PrivaterRoute";
 import { useAppSelector } from "@/store/hooks";
+import ChatPage from "@/views/chatPage";
 
 // Routing
 const Routing = () => {
@@ -14,14 +15,16 @@ const Routing = () => {
     <>
       <Routes>
         <Route path="/" element={<AuthenticationPage />} />
-        {/* <Route
-          path="/upload-file"
+        <Route
+          path="/chat"
           element={
-            <NavbarPage>
-              <LoadFilesPage />
-            </NavbarPage>
+            <PrivateRoute rol={rol} path="/chat">
+              <NavbarPage>
+                <ChatPage />
+              </NavbarPage>
+            </PrivateRoute>
           }
-        /> */}
+        />
 
         <Route
           path="/upload-files"
