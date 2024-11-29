@@ -7,7 +7,6 @@ import ChatDocument from "@/components/ChatDocuments";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import UploadFiles from "@/components/uploadFiles";
 import { resetApp, setChat, setThreadId } from "@/store/ducks/chat";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { extractJsonObjects } from "@/utils/extractJsonResponse";
@@ -149,9 +148,6 @@ const ChatPage = () => {
           className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
         />
         <div className="flex items-center p-3 pt-0">
-          {/* Upload Files Components */}
-          <UploadFiles />
-
           <TooltipProvider delayDuration={50}>
             <Tooltip>
               <TooltipTrigger asChild>
