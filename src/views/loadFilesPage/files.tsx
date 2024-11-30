@@ -20,7 +20,7 @@ const LoadFilesPage = () => {
           <div>
             <h4 className="font-medium leading-none">Adjuntar archivos</h4>
             <p className="text-sm text-muted-foreground">Tipos de archivo admitidos: .docx, .pdf, .pptx, .txt, .mp3, .m4a, .xlsx, .csv</p>
-            <p className="text-xs text-muted-foreground">Peso por archivo: {"<20 MB"}</p>
+            <p className="text-xs text-muted-foreground">Peso máx total: {+import.meta.env.VITE_REACT_SIZE_MAX} MB</p>
           </div>
         </div>
       </div>
