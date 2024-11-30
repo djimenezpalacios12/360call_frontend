@@ -5,9 +5,13 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { ModeToggle } from "../mode-toggle";
 import { NavbarPageProps } from "@/interfaces/navbar.interfaces";
 import { useLocation } from "react-router-dom";
+import LoaderScreen from "../loaderScreen";
+import { useAppSelector } from "@/store/hooks";
 
 const NavbarPage: React.FC<NavbarPageProps> = ({ children }) => {
   const location = useLocation();
+
+  const loading = useAppSelector((state) => state.state.loading);
 
   return (
     <SidebarProvider>
@@ -30,13 +34,10 @@ const NavbarPage: React.FC<NavbarPageProps> = ({ children }) => {
 
         {/* Children content */}
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          {children}
-          {/* <div className="grid auto-rows-min gap-4 md:grid-cols-3"> */}
-          {/* <div className="aspect-video rounded-xl bg-muted/50" /> */}
-          {/* <div className="aspect-video rounded-xl bg-muted/50" /> */}
-          {/* <div className="aspect-video rounded-xl bg-muted/50" /> */}
-          {/* </div> */}
-          {/* <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" /> */}
+          <>
+            {children}
+            {loading && <LoaderScreen />}
+          </>
         </div>
       </SidebarInset>
     </SidebarProvider>

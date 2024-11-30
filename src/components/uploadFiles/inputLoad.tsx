@@ -1,25 +1,25 @@
 import { useState, useRef } from "react";
 import { AxiosResponse } from "axios";
-import { FileIcon, Loader2, XIcon } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { allowedExtensionsInput, allowedExtensions, validateMaxAudioSize } from "@/utils/allowedExtensions.utils";
 import { useAppDispatch } from "@/store/hooks";
+import { setLoading } from "@/store/ducks/state";
 
-export default function InputFile() {
+interface InputFileProps {
+  selectedFiles: File[];
+  setSelectedFiles: React.Dispatch<React.SetStateAction<File[]>>;
+}
+
+const InputFile: React.FC<InputFileProps> = ({ selectedFiles, setSelectedFiles }) => {
   const dispatch = useAppDispatch();
 
   const [load, setload] = useState<boolean>(false);
   const [enableBtn, setenableBtn] = useState<boolean>(false);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Handle remove files
-  const removeFile = (index: number) => {
-    setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
-  };
 
   // ...
   const handleButtonClick = () => {
@@ -117,7 +117,7 @@ export default function InputFile() {
   // 2. Handle load files
   const handleFileUpload = () => {
     setload(true);
-    // dispatch(setLoadBlock(true));
+    dispatch(setLoading(true));
     const formData = new FormData();
 
     // Validate max size audio
@@ -133,7 +133,7 @@ export default function InputFile() {
     //   .then((response: AxiosResponse<any>) => {
     //     setSelectedFiles([]);
     //     setload(false);
-    //     // dispatch(setLoadBlock(false));
+    //     // dispatch(setLoading(false));
     //     toast.success("Archivos Cargados", {
     //       description: "",
     //       className: "toast-styles",
@@ -146,7 +146,7 @@ export default function InputFile() {
     //   })
     //   .catch((error: any) => {
     //     setload(false);
-    //     dispatch(setLoadBlock(false));
+    //     dispatch(setLoading(false));
     //     console.log(error);
     //     toast.error("Error al cargar archivos", {
     //       description: error?.response?.data?.detail || "Error desconocido",
@@ -187,28 +187,10 @@ export default function InputFile() {
               Cargar
             </Button>
           )}
-
-          {/* Files Selected */}
-          {selectedFiles.length > 0 && (
-            <div className="pt-4">
-              <h3 className="text-xs font-semibold mb-2">Archivos Seleccionados:</h3>
-              <ul className="space-y-1 max-h-52 overflow-auto">
-                {selectedFiles.map((file, index) => (
-                  <li key={index} className="flex items-center justify-between p-2 rounded border-[1px] ">
-                    <div className="flex items-center space-x-2 text-wrap">
-                      <FileIcon size={16} />
-                      <span className="text-xs ">{file.name}</span>
-                    </div>
-                    <Button variant="ghost" size="icon" onClick={() => removeFile(index)} aria-label="Eliminar archivo" disabled={load}>
-                      <XIcon className="w-4 h-4" />
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
       </CardContent>
     </Card>
   );
-}
+};
+
+export default InputFile;
