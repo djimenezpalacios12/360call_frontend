@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { allowedExtensionsInput, allowedExtensions, validateMaxAudioSize } from "@/utils/allowedExtensions.utils";
 import { useAppDispatch } from "@/store/hooks";
 import { setLoading } from "@/store/ducks/state";
+import { uploadFilesAssistant } from "@/api/files.api";
 
 interface InputFileProps {
   selectedFiles: File[];
@@ -127,36 +128,36 @@ const InputFile: React.FC<InputFileProps> = ({ selectedFiles, setSelectedFiles }
       formData.append("files", selectedFiles[i]);
     }
 
-    // uploadFilesAssistant(formData, {
-    //   headers: { "Content-Type": "multipart/form-data" },
-    // })
-    //   .then((response: AxiosResponse<any>) => {
-    //     setSelectedFiles([]);
-    //     setload(false);
-    //     // dispatch(setLoading(false));
-    //     toast.success("Archivos Cargados", {
-    //       description: "",
-    //       className: "toast-styles",
-    //       action: {
-    //         label: "Cerrar",
-    //         onClick: () => {},
-    //       },
-    //     });
-    //     return response.data;
-    //   })
-    //   .catch((error: any) => {
-    //     setload(false);
-    //     dispatch(setLoading(false));
-    //     console.log(error);
-    //     toast.error("Error al cargar archivos", {
-    //       description: error?.response?.data?.detail || "Error desconocido",
-    //       className: "toast-styles",
-    //       action: {
-    //         label: "Cerrar",
-    //         onClick: () => {},
-    //       },
-    //     });
-    //   });
+    uploadFilesAssistant(formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then((response: AxiosResponse<any>) => {
+        setSelectedFiles([]);
+        setload(false);
+        // dispatch(setLoading(false));
+        toast.success("Archivos Cargados", {
+          description: "",
+          className: "toast-styles",
+          action: {
+            label: "Cerrar",
+            onClick: () => {},
+          },
+        });
+        return response.data;
+      })
+      .catch((error: any) => {
+        setload(false);
+        dispatch(setLoading(false));
+        console.log(error);
+        toast.error("Error al cargar archivos", {
+          description: error?.response?.data?.detail || "Error desconocido",
+          className: "toast-styles",
+          action: {
+            label: "Cerrar",
+            onClick: () => {},
+          },
+        });
+      });
   };
 
   return (
