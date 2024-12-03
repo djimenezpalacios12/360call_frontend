@@ -1,10 +1,11 @@
+import { useLocation } from "react-router-dom";
+
 import { AppSidebar } from "@/components/app-sidebar";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ModeToggle } from "../mode-toggle";
 import { NavbarPageProps } from "@/interfaces/navbar.interfaces";
-import { useLocation } from "react-router-dom";
 import LoaderScreen from "../loaderScreen";
 import { useAppSelector } from "@/store/hooks";
 

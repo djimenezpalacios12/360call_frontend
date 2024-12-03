@@ -68,7 +68,7 @@ const ChatPage = () => {
     dispatch(setChat(newHistorial));
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_REACT_APP_API}/v1/api/assistant/chat`, {
+      const response = await fetch(`${import.meta.env.VITE_REACT_APP_API}/v1/api/ia/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,7 +108,7 @@ const ChatPage = () => {
       }
     } catch (error: any) {
       setLoad(false);
-      toast.error("Error en interaccion con el Chat", {
+      toast.error("Error en interacción con el Chat", {
         description: error.response?.data.data.err || error.message || "Error desconocido",
         className: "toast-styles",
         action: {

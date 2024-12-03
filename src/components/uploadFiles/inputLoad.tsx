@@ -134,7 +134,7 @@ const InputFile: React.FC<InputFileProps> = ({ selectedFiles, setSelectedFiles }
       .then((response: AxiosResponse<any>) => {
         setSelectedFiles([]);
         setload(false);
-        // dispatch(setLoading(false));
+        dispatch(setLoading(false));
         toast.success("Archivos Cargados", {
           description: "",
           className: "toast-styles",

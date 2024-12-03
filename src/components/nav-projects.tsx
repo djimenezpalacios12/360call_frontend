@@ -1,6 +1,8 @@
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { useView } from "@/hooks/useViews.hooks";
 import { Views } from "@/interfaces/navbar.interfaces";
+import ListFiles from "./listFiles";
+import { Separator } from "./ui/separator";
 
 export function NavProjects() {
   const views = useView();
@@ -8,7 +10,7 @@ export function NavProjects() {
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Opciones</SidebarGroupLabel>
-      <SidebarMenu>
+      <SidebarMenu className="mb-3">
         {views.map((item: Views) => {
           return (
             <SidebarMenuItem key={item.view}>
@@ -22,6 +24,10 @@ export function NavProjects() {
           );
         })}
       </SidebarMenu>
+
+      <Separator className="mb-3" />
+
+      <ListFiles />
     </SidebarGroup>
   );
 }
