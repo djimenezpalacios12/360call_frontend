@@ -4,6 +4,7 @@ import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import storage from "redux-persist/lib/storage";
 import appReducer from "./ducks/app";
 import chatReducer from "./ducks/chat";
+import stateReducer from "./ducks/state";
 
 const persistConfig = {
   key: "root",
@@ -14,6 +15,7 @@ const persistConfig = {
 const userReducer = combineReducers({
   app: appReducer,
   chat: chatReducer,
+  state: stateReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, userReducer);

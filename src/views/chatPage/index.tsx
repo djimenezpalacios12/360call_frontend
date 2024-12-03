@@ -7,7 +7,6 @@ import ChatDocument from "@/components/ChatDocuments";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import UploadFiles from "@/components/uploadFiles";
 import { resetApp, setChat, setThreadId } from "@/store/ducks/chat";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { extractJsonObjects } from "@/utils/extractJsonResponse";
@@ -69,7 +68,7 @@ const ChatPage = () => {
     dispatch(setChat(newHistorial));
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_REACT_APP_API}/v1/api/assistant/chat`, {
+      const response = await fetch(`${import.meta.env.VITE_REACT_APP_API}/v1/api/ia/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -109,7 +108,7 @@ const ChatPage = () => {
       }
     } catch (error: any) {
       setLoad(false);
-      toast.error("Error en interaccion con el Chat", {
+      toast.error("Error en interacción con el Chat", {
         description: error.response?.data.data.err || error.message || "Error desconocido",
         className: "toast-styles",
         action: {
@@ -149,9 +148,6 @@ const ChatPage = () => {
           className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
         />
         <div className="flex items-center p-3 pt-0">
-          {/* Upload Files Components */}
-          <UploadFiles />
-
           <TooltipProvider delayDuration={50}>
             <Tooltip>
               <TooltipTrigger asChild>

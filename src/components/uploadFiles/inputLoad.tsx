@@ -1,22 +1,26 @@
 import { useState, useRef } from "react";
 import { AxiosResponse } from "axios";
-import { FileIcon, Loader2, XIcon } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
-import { allowedExtensionsInput, allowedExtensions } from "@/utils/allowedExtensions.utils";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { allowedExtensionsInput, allowedExtensions, validateMaxAudioSize } from "@/utils/allowedExtensions.utils";
+import { useAppDispatch } from "@/store/hooks";
+import { setLoading } from "@/store/ducks/state";
+import { uploadFilesAssistant } from "@/api/files.api";
 
-export default function InputFile() {
+interface InputFileProps {
+  selectedFiles: File[];
+  setSelectedFiles: React.Dispatch<React.SetStateAction<File[]>>;
+}
+
+const InputFile: React.FC<InputFileProps> = ({ selectedFiles, setSelectedFiles }) => {
+  const dispatch = useAppDispatch();
+
   const [load, setload] = useState<boolean>(false);
   const [enableBtn, setenableBtn] = useState<boolean>(false);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Handle remove files
-  const removeFile = (index: number) => {
-    setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
-  };
 
   // ...
   const handleButtonClick = () => {
@@ -31,6 +35,28 @@ export default function InputFile() {
 
     if (files) {
       const filesArray: File[] = Array.from(files);
+
+      // verify máx audio selectables
+      let count = 0;
+      filesArray.forEach((file) => {
+        if (file.type === "audio/mpeg") {
+          count += 1;
+        }
+      });
+      if (count > +import.meta.env.VITE_REACT_AUDIO_SELECTABLES) {
+        filesSizes.push(0);
+        filesExtensions.push("");
+        toast.warning("Error al seleccionar archivos", {
+          description: "Seleccionar un máximo de 3 audios por carga",
+          className: "toast-styles",
+          action: {
+            label: "Cerrar",
+            onClick: () => {},
+          },
+        });
+        return;
+      }
+
       setSelectedFiles(Array.from(files));
       filesArray.forEach((file) => {
         filesSizes.push(+(file.size / 1048576).toFixed(2));
@@ -43,7 +69,7 @@ export default function InputFile() {
         setSelectedFiles([]);
         setenableBtn(false);
         toast.error("Error en la carga de archivos", {
-          description: `Archivos no admitidos`,
+          description: "Archivos no admitidos",
           className: "toast-styles",
           action: {
             label: "Cerrar",
@@ -53,29 +79,13 @@ export default function InputFile() {
         return;
       }
 
-      // Verify size by file (max. 20 mb)
-      const sizeByFile = filesSizes.some((fileSize) => fileSize > 20);
-      if (sizeByFile) {
-        setSelectedFiles([]);
-        setenableBtn(false);
-        toast.error("Error en la carga de archivos", {
-          description: `Tus achivos seleccionado superan el limite (20 MB)`,
-          className: "toast-styles",
-          action: {
-            label: "Cerrar",
-            onClick: () => {},
-          },
-        });
-        return;
-      }
-
-      // ? Verify total size
-      //   const totalSize = filesSizes.reduce((a, b) => a + b, 0);
-      //   if (+totalSize > 20) {
+      // ? Verify size by file (max. 20 mb)
+      //   const sizeByFile = filesSizes.some((fileSize) => fileSize > 100);
+      //   if (sizeByFile) {
       //     setSelectedFiles([]);
       //     setenableBtn(false);
       //     toast.error("Error en la carga de archivos", {
-      //       description: `Limite carga superado. (${totalSize} MB)`,
+      //       description: Tus achivos seleccionado superan el limite (20 MB),
       //       className: "toast-styles",
       //       action: {
       //         label: "Cerrar",
@@ -85,6 +95,22 @@ export default function InputFile() {
       //     return;
       //   }
 
+      // Verify total size
+      const totalSize = filesSizes.reduce((a, b) => a + b, 0);
+      if (+totalSize > +import.meta.env.VITE_REACT_SIZE_MAX) {
+        setSelectedFiles([]);
+        setenableBtn(false);
+        toast.error("Error en la carga de archivos", {
+          description: `Limite carga superado. (${totalSize} MB)`,
+          className: "toast-styles",
+          action: {
+            label: "Cerrar",
+            onClick: () => {},
+          },
+        });
+        return;
+      }
+
       setenableBtn(true);
     }
   };
@@ -92,40 +118,46 @@ export default function InputFile() {
   // 2. Handle load files
   const handleFileUpload = () => {
     setload(true);
+    dispatch(setLoading(true));
     const formData = new FormData();
+
+    // Validate max size audio
+    validateMaxAudioSize(selectedFiles, setload);
 
     for (let i = 0; i < selectedFiles.length; i++) {
       formData.append("files", selectedFiles[i]);
     }
 
-    // uploadFilesAssistant(formData, {
-    //   headers: { "Content-Type": "multipart/form-data" },
-    // })
-    //   .then((response: AxiosResponse<any>) => {
-    //     setSelectedFiles([]);
-    //     setload(false);
-    //     toast.success("Archivos Cargados", {
-    //       description: "",
-    //       className: "toast-styles",
-    //       action: {
-    //         label: "Cerrar",
-    //         onClick: () => {},
-    //       },
-    //     });
-    //     return response.data;
-    //   })
-    //   .catch((error: any) => {
-    //     console.log(error);
-    //     setload(false);
-    //     toast.error("Error al cargar archivos", {
-    //       description: error.response.data.detail || "Error desconocido",
-    //       className: "toast-styles",
-    //       action: {
-    //         label: "Cerrar",
-    //         onClick: () => {},
-    //       },
-    //     });
-    //   });
+    uploadFilesAssistant(formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then((response: AxiosResponse<any>) => {
+        setSelectedFiles([]);
+        setload(false);
+        dispatch(setLoading(false));
+        toast.success("Archivos Cargados", {
+          description: "",
+          className: "toast-styles",
+          action: {
+            label: "Cerrar",
+            onClick: () => {},
+          },
+        });
+        return response.data;
+      })
+      .catch((error: any) => {
+        setload(false);
+        dispatch(setLoading(false));
+        console.log(error);
+        toast.error("Error al cargar archivos", {
+          description: error?.response?.data?.detail || "Error desconocido",
+          className: "toast-styles",
+          action: {
+            label: "Cerrar",
+            onClick: () => {},
+          },
+        });
+      });
   };
 
   return (
@@ -156,28 +188,10 @@ export default function InputFile() {
               Cargar
             </Button>
           )}
-
-          {/* Files Selected */}
-          {selectedFiles.length > 0 && (
-            <div className="pt-4">
-              <h3 className="text-xs font-semibold mb-2">Archivos Seleccionados:</h3>
-              <ul className="space-y-1 max-h-96 overflow-auto">
-                {selectedFiles.map((file, index) => (
-                  <li key={index} className="flex items-center justify-between p-2 rounded border-[1px] ">
-                    <div className="flex items-center space-x-2 text-wrap">
-                      <FileIcon size={16} />
-                      <span className="text-xs ">{file.name}</span>
-                    </div>
-                    <Button variant="ghost" size="icon" onClick={() => removeFile(index)} aria-label="Eliminar archivo" disabled={load}>
-                      <XIcon className="w-4 h-4" />
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
       </CardContent>
     </Card>
   );
-}
+};
+
+export default InputFile;
