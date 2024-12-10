@@ -21,6 +21,7 @@ const ChatPage = () => {
   const token = useAppSelector((state) => state.app.user.token);
   const threadId = useAppSelector((state) => state.chat.threadId);
   const filesCodeInterpreter = useAppSelector((state) => state.chat.filesCodeInterpreter);
+  const filesSearch = useAppSelector((state) => state.chat.filesSearch);
 
   const [load, setLoad] = useState(false);
   const [input, setInput] = useState("");
@@ -62,6 +63,7 @@ const ChatPage = () => {
       threadId: threadId,
       id_file_download: "",
       filesCodeInterpreter: filesCodeInterpreter,
+      fileSearch: filesSearch,
       id_image_download: "",
     };
     const newHistorial = [...historialChat, newAnswer];

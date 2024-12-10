@@ -7,6 +7,7 @@ const initialState: ChatStore = {
   chatHistory: [],
   threadId: "",
   filesCodeInterpreter: [],
+  filesSearch: [],
 };
 
 export const app = createSlice({
@@ -22,6 +23,9 @@ export const app = createSlice({
     setFileCodeInterpreter: (state: ChatStore, action: PayloadAction<string[]>) => {
       return { ...state, filesCodeInterpreter: action.payload };
     },
+    setFilesSearch: (state: ChatStore, action: PayloadAction<string[]>) => {
+      return { ...state, filesSearch: action.payload };
+    },
     // Reset Redux State
     resetApp(state) {
       Object.assign(state, initialState);
@@ -29,5 +33,5 @@ export const app = createSlice({
   },
 });
 
-export const { setChat, resetApp, setThreadId, setFileCodeInterpreter } = app.actions;
+export const { setChat, resetApp, setThreadId, setFileCodeInterpreter, setFilesSearch } = app.actions;
 export default app.reducer;
