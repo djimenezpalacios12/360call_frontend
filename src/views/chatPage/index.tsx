@@ -10,7 +10,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { resetApp, setChat, setThreadId } from "@/store/ducks/chat";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { extractJsonObjects } from "@/utils/extractJsonResponse";
-import { cleanResponse } from "@/utils/regex";
 import { Button } from "@/components/ui/button";
 
 const ChatPage = () => {
@@ -21,6 +20,7 @@ const ChatPage = () => {
   const token = useAppSelector((state) => state.app.user.token);
   const threadId = useAppSelector((state) => state.chat.threadId);
   const filesCodeInterpreter = useAppSelector((state) => state.chat.filesCodeInterpreter);
+  const filesSearch = useAppSelector((state) => state.chat.filesSearch);
 
   const [load, setLoad] = useState(false);
   const [input, setInput] = useState("");
@@ -62,6 +62,7 @@ const ChatPage = () => {
       threadId: threadId,
       id_file_download: "",
       filesCodeInterpreter: filesCodeInterpreter,
+      fileSearch: filesSearch,
       id_image_download: "",
     };
     const newHistorial = [...historialChat, newAnswer];
@@ -94,8 +95,8 @@ const ChatPage = () => {
               {
                 role: "assistant",
                 id_file_download: decodedObject[decodedObject.length - 1]?.id_file_download,
-                content: cleanResponse(decodedObject[decodedObject.length - 1]?.response),
-                id_image_download: decodedObject[decodedObject.length - 1].id_image_download,
+                content: decodedObject[decodedObject.length - 1]?.response,
+                id_image_download: decodedObject[decodedObject.length - 1]?.id_image_download,
               },
             ])
           );

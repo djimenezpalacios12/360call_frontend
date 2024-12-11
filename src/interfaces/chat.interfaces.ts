@@ -13,6 +13,7 @@ export interface ChatStore {
   chatHistory: ChatBot[];
   threadId: string;
   filesCodeInterpreter: string[];
+  filesSearch: string[];
 }
 
 export interface RetrieveFileIA {
