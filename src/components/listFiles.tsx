@@ -22,20 +22,6 @@ const ListFiles = () => {
   const [selectedFilesSearch, setSelectedFilesSearch] = useState<string[]>([]);
 
   const files = useGetFiles(setLoading, open);
-  // const files: any = [
-  //   {
-  //     file_id: "sfsdgsdfgsfg",
-  //     file_name: "algo2.pdf",
-  //   },
-  //   {
-  //     file_id: "sfsdgsasdasdasdsfg",
-  //     file_name: "algo1.pdf",
-  //   },
-  //   {
-  //     file_id: "sfsdgssssg",
-  //     file_name: "algo1.xlsx",
-  //   },
-  // ];
 
   // Manejar selección de archivos
   const handleSelect = (fileId: string, fileName: string) => {
@@ -85,31 +71,37 @@ const ListFiles = () => {
           </Button>
         </PopoverTrigger>
 
-        <PopoverContent className="w-[200px] p-0">
+        <PopoverContent className="w-[300px] p-0">
           <Command>
             <CommandInput placeholder="Listado Archivos" />
             <CommandList>
               <CommandEmpty>Sin coincidencias</CommandEmpty>
               <CommandGroup>
                 <>
-                  {loading && (
+                  {loading ? (
                     <div className="flex items-center justify-center mt-4">
                       <Loader2 size={16} className="animate-spin mr-3" />
                       <span className="text-xs">Cargando...</span>
                     </div>
+                  ) : (
+                    <>
+                      {files.map((file: FilesUser) => (
+                        <CommandItem
+                          className="w-full text-ellipsis text-nowrap overflow-hidden whitespace-nowrap p-1"
+                          key={file.file_id}
+                          value={file.file_name}
+                          onSelect={() => handleSelect(file.file_id, file.file_name)}
+                        >
+                          <div className="w-full flex justify-start items-center">
+                            {(selectedFiles.includes(file.file_id) || selectedFilesSearch.includes(file.file_name)) && (
+                              <Check size={16} className="text-yellow-500 mr-2" />
+                            )}
+                            {file.file_name}
+                          </div>
+                        </CommandItem>
+                      ))}
+                    </>
                   )}
-                </>
-                <>
-                  {files.map((file: FilesUser) => (
-                    <CommandItem key={file.file_id} value={file.file_name} onSelect={() => handleSelect(file.file_id, file.file_name)}>
-                      <div className="w-full flex justify-between items-center">
-                        {file.file_name}
-                        {(selectedFiles.includes(file.file_id) || selectedFilesSearch.includes(file.file_name)) && (
-                          <Check size={16} className="text-yellow-500" />
-                        )}
-                      </div>
-                    </CommandItem>
-                  ))}
                 </>
               </CommandGroup>
             </CommandList>
