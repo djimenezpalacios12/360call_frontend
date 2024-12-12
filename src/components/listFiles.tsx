@@ -4,7 +4,7 @@ import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-import { useGetFiles } from "@/hooks/useGetFiles";
+// import { useGetFiles } from "@/hooks/useGetFiles";
 import { FilesUser } from "@/interfaces/files.interfaces";
 import { Button } from "./ui/button";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -16,12 +16,20 @@ const ListFiles = () => {
   const filesCodeInterpreter = useAppSelector((state) => state.chat.filesCodeInterpreter);
   const filesSearch = useAppSelector((state) => state.chat.filesSearch);
 
-  const [loading, setLoading] = useState<boolean>(false);
+  // ! prototype
+  const [loading] = useState<boolean>(false);
   const [open, setOpen] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const [selectedFilesSearch, setSelectedFilesSearch] = useState<string[]>([]);
 
-  const files = useGetFiles(setLoading, open);
+  // ! prototype
+  // const files = useGetFiles(setLoading, open);
+  const files = [
+    {
+      file_id: "assistant-aYPCTXJ2Md4h90aBlpdZRi5O",
+      file_name: "Contrato Prestación de Servicios de Consultoria_Unificados-1-2",
+    },
+  ];
 
   // Manejar selección de archivos
   const handleSelect = (fileId: string, fileName: string) => {

@@ -177,7 +177,12 @@ const InputFile: React.FC<InputFileProps> = ({ selectedFiles, setSelectedFiles }
             ref={fileInputRef}
             accept={allowedExtensionsInput}
           />
-          <Button variant="secondary" onClick={handleButtonClick} className="w-full" disabled={load}>
+          {/* // ! Prototype */}
+          <div className="text-xs flex justify-center p-1 border rounded text-orange-600 bg-orange-300">
+            Deshabilitado, no puede cargar archivos en esta demo
+          </div>
+          {/* // ! Prototype  disabled={load} */}
+          <Button variant="secondary" onClick={handleButtonClick} className="w-full" disabled>
             Seleccionar Archivos
           </Button>
 
