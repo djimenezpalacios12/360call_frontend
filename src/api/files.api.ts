@@ -1,4 +1,4 @@
-import client from "./index.file.api";
+import client from "./index.files.api";
 
 // get files from assistant
 export const getFileAssistant = () => {

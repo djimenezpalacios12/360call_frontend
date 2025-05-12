@@ -1,7 +1,15 @@
 import * as React from "react";
 import { Headset } from "lucide-react";
 
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar";
 import { NavProjects } from "./nav-projects";
 import NavUser from "./nav-user";
 
@@ -18,7 +26,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">360 Call</span>
-                  <span className="truncate text-xs">360 Innova</span>
+                  <span className="truncate text-xs">360 Negocios</span>
                 </div>
               </a>
             </SidebarMenuButton>

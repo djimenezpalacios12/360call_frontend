@@ -1,10 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 
-const apiUrl = import.meta.env.VITE_REACT_APP_API;
+const apiUrl = import.meta.env.VITE_REACT_APP_API_MS_USUARIOS;
 
 const getApiUrl = () => {
   if (apiUrl === undefined) {
-    throw new Error("You have not provided VITE_REACT_APP_API enviroment variable");
+    throw new Error(
+      "You have not provided VITE_REACT_APP_API_MS_USUARIOS enviroment variable"
+    );
   }
 
   return `${apiUrl}/v1/api/`;

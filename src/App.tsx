@@ -3,8 +3,8 @@ import { BrowserRouter } from "react-router-dom";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import AuthenticationPage from "./views/AuthenticationPage";
-import { configureClient } from "./api/index.api";
-import { configureClientFiles } from "./api/index.file.api";
+import { configureClient } from "./api/index.users.api";
+import { configureClientFiles } from "./api/index.files.api";
 import { useAppSelector } from "./store/hooks";
 import Routing from "./routing";
 import "./App.css";
@@ -16,7 +16,9 @@ function App() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <BrowserRouter>{token ? <Routing /> : <AuthenticationPage />}</BrowserRouter>
+      <BrowserRouter>
+        {token ? <Routing /> : <AuthenticationPage />}
+      </BrowserRouter>
 
       <Toaster position="bottom-left" />
     </ThemeProvider>

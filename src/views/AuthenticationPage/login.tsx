@@ -6,13 +6,28 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { formSchema } from "../../schemas/login.schemas";
 import { useLoginForm } from "@/hooks/useLogin.hooks";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { metadataUser, signIn } from "@/api/auth.api";
-import { configureClient } from "@/api/index.api";
+import { configureClient } from "@/api/index.users.api";
 import { ErrorResponseData } from "@/interfaces/Axios.interfaces";
 import { TokenPayload } from "@/interfaces/auth.interfaces";
 import { useAppDispatch } from "@/store/hooks";
@@ -55,7 +70,10 @@ export default function Login() {
         setLoad(false);
         console.log("Error en la Autenticación:", error);
         toast.error("Error en la Autenticación", {
-          description: error.response?.data.data.err || error.message || "Error desconocido",
+          description:
+            error.response?.data.data.err ||
+            error.message ||
+            "Error desconocido",
           className: "toast-styles",
           action: {
             label: "Cerrar",
@@ -74,7 +92,9 @@ export default function Login() {
             360 Call App
           </h2>
         </CardTitle>
-        <CardDescription>Ingresa el correo y contraseña de tu cuenta</CardDescription>
+        <CardDescription>
+          Ingresa el correo y contraseña de tu cuenta
+        </CardDescription>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 ">
@@ -87,7 +107,11 @@ export default function Login() {
                   <FormItem>
                     <FormLabel>Correo</FormLabel>
                     <FormControl>
-                      <Input placeholder="usuario@correo.cl" {...field} disabled={load} />
+                      <Input
+                        placeholder="usuario@correo.cl"
+                        {...field}
+                        disabled={load}
+                      />
                     </FormControl>
                     <FormDescription></FormDescription>
                     <FormMessage />
@@ -104,7 +128,12 @@ export default function Login() {
                     <FormLabel>Contraseña</FormLabel>
                     <div className="flex">
                       <FormControl>
-                        <Input type={type} placeholder="******" {...field} disabled={load} />
+                        <Input
+                          type={type}
+                          placeholder="******"
+                          {...field}
+                          disabled={load}
+                        />
                       </FormControl>
                       <Button
                         type="button"
@@ -112,12 +141,20 @@ export default function Login() {
                         size="icon"
                         className="ml-2"
                         disabled={load}
-                        onClick={() => setType(type === "password" ? "text" : "password")}
+                        onClick={() =>
+                          setType(type === "password" ? "text" : "password")
+                        }
                       >
                         {type === "password" ? (
-                          <Eye size={18} className="active:scale-90 duration-75" />
+                          <Eye
+                            size={18}
+                            className="active:scale-90 duration-75"
+                          />
                         ) : (
-                          <EyeOff size={18} className="active:scale-90 duration-75" />
+                          <EyeOff
+                            size={18}
+                            className="active:scale-90 duration-75"
+                          />
                         )}
                       </Button>
                     </div>

@@ -1,4 +1,4 @@
-import client from "./index.api";
+import client from "./index.users.api";
 import { SigninBody } from "../interfaces/auth.interfaces";
 
 export const signIn = (signinBody: SigninBody) => {

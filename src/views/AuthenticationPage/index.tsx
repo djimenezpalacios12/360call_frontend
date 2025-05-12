@@ -18,14 +18,17 @@ export default function AuthenticationPage() {
         <div className="relative hidden h-full flex-col p-10 text-white dark:border-r lg:flex">
           <div className="absolute inset-0 container-background" />
           <div className="relative z-20 flex items-center text-lg">
-            <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">360 Innova</h4>
+            <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+              360 Negocios
+            </h4>
           </div>
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-md">
                 <blockquote className="mt-5 border-l-2 pl-6 italic">
-                  &ldquo;Lo que une todo esto es cómo se representan los datos, por lo que el aprendizaje de la representación se está volviendo más
-                  central.&rdquo;
+                  &ldquo;Lo que une todo esto es cómo se representan los datos,
+                  por lo que el aprendizaje de la representación se está
+                  volviendo más central.&rdquo;
                 </blockquote>
               </p>
               <footer className="text-sm text-center">Samy Bengio</footer>
